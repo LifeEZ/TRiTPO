@@ -5,28 +5,31 @@ namespace Assets.Scripts
 {
     public class Skeleton : MonoBehaviour
     {
-        [SerializeField] private int m_health = 100;
-        [SerializeField] private int m_moveRange = 20;
-        [SerializeField] private int m_attackRange = 5;
+        [SerializeField] private int m_health = 100;//wrong naming, no prefix('m_') needed
+        [SerializeField] private int m_moveRange = 20;//wrong naming, no prefix('m_') needed
+        [SerializeField] private int m_attackRange = 5;//wrong naming, no prefix('m_') needed
 
-        [Range(0, .3f)] [SerializeField] private float m_movementSmoothing = .05f;
-        [SerializeField] private float m_walkSpeed = 10f;
-        public float m_moveCoordinates;
-        [SerializeField] private Rigidbody2D m_rigidBody;
-        [SerializeField] private Animator m_animator;
-        [SerializeField] private GameObject m_projectile;
-        [SerializeField] private Transform m_firepointRight; //use for shoot the player and also for raycast
-        [SerializeField] private Transform m_firepointLeft; //use only for raycast - may be deleted - fix later
-        [SerializeField] private Transform m_firepoint;//because of the fucking Quaternion in firepoint right
+        [Range(0, .3f)] [SerializeField] private float m_movementSmoothing = .05f;//wrong naming, no prefix('m_') needed
+        [SerializeField] private float m_walkSpeed = 10f;//wrong naming, no prefix('m_') needed
+        public float m_moveCoordinates;//wrong naming, no prefix('m_') needed
+        [SerializeField] private Rigidbody2D m_rigidBody;//wrong naming, no prefix('m_') needed
+        [SerializeField] private Animator m_animator;//wrong naming, no prefix('m_') needed
+        [SerializeField] private GameObject m_projectile;//wrong naming, no prefix('m_') needed
+        [SerializeField] private Transform m_firepointRight; //wrong naming, no prefix('m_') needed
+        //use for shoot the player and also for raycast
+        [SerializeField] private Transform m_firepointLeft; //wrong naming, no prefix('m_') needed
+        //use only for raycast - may be deleted - fix later
+        [SerializeField] private Transform m_firepoint;//wrong naming, no prefix('m_') needed
+        //because of the fucking Quaternion in firepoint right
         //DONT CHANGE FIREPOINTS POSITIONS
 
-        private Vector3 m_velocity = Vector3.zero;
+        private Vector3 m_velocity = Vector3.zero; //wrong naming, no prefix('m_') needed
 
-        private bool m_facingRight = true;
-        private bool m_moving;
-        private bool m_started = true; //????????????????????????
+        private bool m_facingRight = true;//wrong naming, no prefix('m_') needed
+        private bool m_moving;//wrong naming, no prefix('m_') needed
+        private bool m_started = true; //wrong naming, no prefix('m_') needed
 
-        private enum State
+        private enum State//wrong naming, should be like AnimationState
         {
             Idle,
             Walk,
@@ -34,7 +37,7 @@ namespace Assets.Scripts
             Die
         };
 
-        private State m_state = State.Idle;
+        private State m_state = State.Idle;//wrong naming, no prefix('m_') needed
 
         public void TakeDamage(int damage)
         {
@@ -49,7 +52,8 @@ namespace Assets.Scripts
             Destroy(gameObject, 1);
         }
 
-        private void Shoot()//Used as event-method in animation SkeletonAttack
+        private void Shoot()//wrong naming, should be ShootProjectile
+                            //Used as event-method in animation SkeletonAttack
         {
             Instantiate(m_projectile, m_firepoint.position, m_firepoint.rotation);
         }
@@ -94,7 +98,7 @@ namespace Assets.Scripts
             }
         }
 
-        private void Eye()
+        private void Eye()//inapropriate naming, should be named FindPlayer; also can me replaced by integrated method moveTowards
         {
             var angle = Mathf.Sin(Time.time * 100) * 360; //tweak this to change frequency
             RaycastHit2D hitRight = Physics2D.Raycast(m_firepointRight.position, m_firepointRight.right, m_moveRange);
@@ -190,7 +194,7 @@ namespace Assets.Scripts
             m_facingRight = !m_facingRight;
         }
 
-        public void setMaterial(PhysicsMaterial2D material)
+        public void setMaterial(PhysicsMaterial2D material)//wrong naming, should be SetMaterial
         {
             m_rigidBody.sharedMaterial = material;
         }

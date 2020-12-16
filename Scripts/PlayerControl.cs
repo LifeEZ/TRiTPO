@@ -5,62 +5,66 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts {
     public class PlayerControl : MonoBehaviour {
-        [SerializeField] private float m_movementSpeed = 2.5f;
-        private float m_xMovement;
+        [SerializeField] private float m_movementSpeed = 2.5f;//wrong naming, no prefix('m_') needed
+        private float m_xMovement;//wrong naming, no prefix('m_') needed
 
-        [Range(0, .3f)] [SerializeField] private float m_movementSmoothing = .05f; // How much to smooth out the movement
+        [Range(0, .3f)] [SerializeField] private float m_movementSmoothing = .05f; //wrong naming, no prefix('m_') needed
+        // How much to smooth out the movement
 
-        [SerializeField] private float m_jumpForce = 20f;
+        [SerializeField] private float m_jumpForce = 20f;//wrong naming, no prefix('m_') needed
 
-        [SerializeField] private float m_slopeCheckDistance = 0.5f;
-        [SerializeField] private float m_groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+        [SerializeField] private float m_slopeCheckDistance = 0.5f;//wrong naming, no prefix('m_') needed
+        [SerializeField] private float m_groundedRadius = .2f; //wrong naming, no prefix('m_') needed
+        // Radius of the overlap circle to determine if grounded
 
-        private float m_slopeDownAngle;
+        private float m_slopeDownAngle;//wrong naming, no prefix('m_') needed
 
 
-        [SerializeField] private int m_maxHealth = 50;
-        public float m_currentHealth;
+        [SerializeField] private int m_maxHealth = 50;//wrong naming, no prefix('m_') needed
+        public float m_currentHealth;//wrong naming, no prefix('m_') needed
 
-        private bool m_canRegainHealth;
-        [Range(0, 20f)] [SerializeField] private float m_regeneration = 5f;
-        GameMaster gm;
-        private bool m_canGetDamage = true;
-        private float m_cantGetDamageTimer = 0.75f;
+        private bool m_canRegainHealth;//wrong naming, no prefix('m_') needed
+        [Range(0, 20f)] [SerializeField] private float m_regeneration = 5f;//wrong naming, no prefix('m_') needed
+        GameMaster gm;//wrong naming, should be gameMaster
+        private bool m_canGetDamage = true;//wrong naming, no prefix('m_') needed
+        private float m_cantGetDamageTimer = 0.75f;//wrong naming, no prefix('m_') needed
         //private int m_gold = 0;
 
-        private bool m_isJumping;
-        private bool m_isOnGround;
-        private bool m_isOnSlope;
-        private bool m_canJump;
-        private bool m_nearLever;
-        private bool m_nearChest;
-        private bool m_facingRight = true;
+        private bool m_isJumping;//wrong naming, no prefix('m_') needed
+        private bool m_isOnGround;//wrong naming, no prefix('m_') needed
+        private bool m_isOnSlope;//wrong naming, no prefix('m_') needed
+        private bool m_canJump;//wrong naming, no prefix('m_') needed
+        private bool m_nearLever;//wrong naming, no prefix('m_') needed
+        private bool m_nearChest;//wrong naming, no prefix('m_') needed
+        private bool m_facingRight = true;//wrong naming, no prefix('m_') needed
 
-        private bool m_hasControls = true;
+        private bool m_hasControls = true;//wrong naming, no prefix('m_') needed
 
-        private Vector3 m_velocity = Vector3.zero;
+        private Vector3 m_velocity = Vector3.zero;//wrong naming, no prefix('m_') needed
 
-        private Vector2 m_newVelocity;
-        private Vector2 m_newForce;
-        private Vector2 m_slopeNormalPerp;
+        private Vector2 m_newVelocity;//wrong naming, no prefix('m_') needed
+        private Vector2 m_newForce;//wrong naming, no prefix('m_') needed
+        private Vector2 m_slopeNormalPerp;//wrong naming, no prefix('m_') needed
 
 
-        private Rigidbody2D m_rigidbody2D;
+        private Rigidbody2D m_rigidbody2D;//wrong naming, no prefix('m_') needed
 
-        [SerializeField] private PhysicsMaterial2D m_noFriction;
-        [SerializeField] private PhysicsMaterial2D m_fullFriction;
+        [SerializeField] private PhysicsMaterial2D m_noFriction;//wrong naming, no prefix('m_') needed
+        [SerializeField] private PhysicsMaterial2D m_fullFriction;//wrong naming, no prefix('m_') needed
 
-        [SerializeField] private LayerMask m_whatIsGround = new LayerMask(); // A mask determining what is ground to the character
+        [SerializeField] private LayerMask m_whatIsGround = new LayerMask(); //wrong naming, no prefix('m_') needed
+        // A mask determining what is ground to the character
 
-        [SerializeField] private Animator m_animator;
-        [SerializeField] private Transform m_groundCheck = null; // A position marking where to check if the player is grounded.
+        [SerializeField] private Animator m_animator;//wrong naming, no prefix('m_') needed
+        [SerializeField] private Transform m_groundCheck = null; //wrong naming, no prefix('m_') needed
+        // A position marking where to check if the player is grounded.
 
-        [SerializeField] private Transform m_firepoint;
-        [SerializeField] private GameObject m_projectile;
+        [SerializeField] private Transform m_firepoint;//wrong naming, no prefix('m_') needed
+        [SerializeField] private GameObject m_projectile;//wrong naming, no prefix('m_') needed
 
-        [SerializeField] private HealthBar m_healthBar;
+        [SerializeField] private HealthBar m_healthBar;//wrong naming, no prefix('m_') needed
 
-        private enum State {
+        private enum State {//wrong naming, should be like AnimationState
             Idle,
             Walk,
             Jump,
@@ -71,8 +75,8 @@ namespace Assets.Scripts {
 
         private State m_state = State.Idle;
 
-        private LeverInteraction m_lever;
-        private ChestInteraction m_chest;
+        private LeverInteraction m_lever;//wrong naming, no prefix('m_') needed
+        private ChestInteraction m_chest;//wrong naming, no prefix('m_') needed
 
         private void Start()
         {
@@ -173,7 +177,7 @@ namespace Assets.Scripts {
             m_rigidbody2D.AddForce(m_newForce, ForceMode2D.Impulse);
         }
 
-        private void CheckGround() {
+        private void CheckGround() {//wrong naming, should be like CheckGroundCollision
             m_isOnGround = Physics2D.OverlapCircle(m_groundCheck.position, m_groundedRadius, m_whatIsGround);
 
             if (m_rigidbody2D.velocity.y <= 0.0f) {
@@ -204,13 +208,13 @@ namespace Assets.Scripts {
             }
         }
 
-        private void SlopeCheck() {
+        private void SlopeCheck() { //SlopeCheckPos
             Vector2 checkPos = m_groundCheck.position;
             SlopeCheckHorizontal(checkPos);
             SlopeCheckVertical(checkPos);
         }
 
-        private void SlopeCheckHorizontal(Vector2 checkPos) {
+        private void SlopeCheckHorizontal(Vector2 checkPos) {//wrong naming, should be like SlopeCheckHorizontalPos
             RaycastHit2D slopeHitFront =
                 Physics2D.Raycast(checkPos, transform.right, m_slopeCheckDistance, m_whatIsGround);
             RaycastHit2D slopeHitBack =
@@ -221,7 +225,7 @@ namespace Assets.Scripts {
 
         }
 
-        private void SlopeCheckVertical(Vector2 checkPos) {
+        private void SlopeCheckVertical(Vector2 checkPos) {//wrong naming, should be like SlopeCheckVerticalPos
             RaycastHit2D hit = Physics2D.Raycast(checkPos, Vector2.down, m_slopeCheckDistance, m_whatIsGround);
             if (hit) {
                 m_slopeNormalPerp = Vector2.Perpendicular(hit.normal).normalized;
@@ -241,7 +245,7 @@ namespace Assets.Scripts {
             else m_rigidbody2D.sharedMaterial = m_noFriction;
         }
         
-        private void Interactions() {
+        private void Interactions() {//wrong naming, should be like ObjectsInteraction
             if (Input.GetKeyDown(KeyCode.E)) {
                 if (m_nearChest) {
                     m_chest.Open();
@@ -284,8 +288,8 @@ namespace Assets.Scripts {
         }
 
         public void TakeDamage(int damage) {
-            if(!m_canGetDamage)
-            {
+            if(!m_canGetDamage) //coulde be one liner
+            { 
                 return;
             }
             m_currentHealth -= damage;
@@ -306,13 +310,13 @@ namespace Assets.Scripts {
             }
         }
 
-        public void Shoot()
+        public void Shoot()////wrong naming, should be ShootProjectile
         {
             m_projectile.GetComponent<Projectile>().SetParent(Projectile.Parent.Player);
             Instantiate(m_projectile, m_firepoint.position, m_firepoint.rotation);
         }
 
-        private IEnumerator CantTakeDamageWait()
+        private IEnumerator CantTakeDamageWait()//wrong naming, should be WaitToTakeDamage
         {
             m_canGetDamage = true;
             while (true)

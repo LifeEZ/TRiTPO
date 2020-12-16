@@ -4,8 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Melee_enemy : MonoBehaviour
+public class Melee_enemy : MonoBehaviour////wrong naming, should be MeleeEnemy
 {
+    #region wrong naming, no prefix ('m_') needed
+
     [SerializeField] private int m_health = 100;
     [SerializeField] private int m_moveRange = 20;
     [SerializeField] private float m_attackRange = 5;
@@ -22,9 +24,12 @@ public class Melee_enemy : MonoBehaviour
 
     private bool m_facingRight = true;
     private bool m_moving;
-    private bool m_started = true; 
+    private bool m_started = true;
 
-    private enum State
+    #endregion 
+
+
+    private enum State//wrong naming, could be like AnimationState
     {
         Idle,
         Walk,
@@ -33,7 +38,7 @@ public class Melee_enemy : MonoBehaviour
         Die
     };
 
-    private State m_state = State.Idle;
+    private State m_state = State.Idle;//wrong naming, no prefix ('m_') needed
 
     public void TakeDamage(int damage)
     {
@@ -47,7 +52,7 @@ public class Melee_enemy : MonoBehaviour
 
     private void Move(float move)
     {
-        Vector3 targetVelocity = new Vector2(move * 10f, m_rigidBody.velocity.y);
+        Vector3 targetVelocity = new Vector2(move * 10f, m_rigidBody.velocity.y);//Should be Vector2 instead Vector3
         // And then smoothing it out and applying it to the character
         m_rigidBody.velocity =
             Vector3.SmoothDamp(m_rigidBody.velocity, targetVelocity, ref m_velocity, m_movementSmoothing);
@@ -64,13 +69,13 @@ public class Melee_enemy : MonoBehaviour
         string state = currentState[0].clip.name;
         switch (state)
         {
-            case "run":
+            case "run"://capitalize case, should be "Run"
                 m_state = State.Walk;
                 break;
-            case "death":
+            case "death"://capitalize case, should be "Death"
                 m_state = State.Die;
                 break;
-            case "attack":
+            case "attack"://capitalize case, should be "Attack"
                 m_state = State.Attack;
                 break;
             default:
@@ -90,7 +95,7 @@ public class Melee_enemy : MonoBehaviour
         }
     }
 
-    private void Eye()
+    private void Eye()//inapropriate naming, should be named FindPlayer; also can me replaced by integrated method moveTowards
     {
         var angle = Mathf.Sin(Time.time * 100) * 360; //tweak this to change frequency
         RaycastHit2D hitRight = Physics2D.Raycast(m_firepointRight.position, m_firepointRight.right, m_moveRange);
@@ -206,7 +211,7 @@ public class Melee_enemy : MonoBehaviour
         }
     }
 
-    public void setMaterial(PhysicsMaterial2D material)
+    public void setMaterial(PhysicsMaterial2D material)//wrong naming, should be SetMaterial
     {
         m_rigidBody.sharedMaterial = material;
     }

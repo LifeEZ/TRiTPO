@@ -4,19 +4,19 @@ namespace Assets.Scripts
 {
     public class Projectile : MonoBehaviour
     {
-        [SerializeField] private float m_speed = 10f;
-        [SerializeField] private int m_damage = 10;
+        [SerializeField] private float m_speed = 10f;//wrong naming, no prefix('m_') needed
+        [SerializeField] private int m_damage = 10;//wrong naming, no prefix('m_') needed
 
-        [SerializeField] private Rigidbody2D m_rigidBody;
+        [SerializeField] private Rigidbody2D m_rigidBody;//wrong naming, no prefix('m_') needed
 
-        public enum Parent
+        public enum Parent//wrong naming, should be ParentObject
         {
             Player,
             Enemy,
             Default
         };
 
-        [SerializeField] private Parent m_parent = Parent.Default;
+        [SerializeField] private Parent m_parent = Parent.Default;//wrong naming, no prefix('m_') needed
 
         private void Start()
         {
